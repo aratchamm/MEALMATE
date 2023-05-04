@@ -16,10 +16,18 @@ const Data = ({ Status, By, Menu, Detail, Tel ,OrderId ,Token ,myFunc: reFetch})
   const [confirmText, setConfirmText] = useState("ยืนยัน");
   const [closeOrderText, setcloseOrderText] = useState("จัดส่งแล้ว");
 
-  const [statusColor, setStatusColor] = useState('#8d8d8d');
+  const [statusColor, setStatusColor] = useState("#8D8D8D");
   const [statusText, setStatusText] = useState(Status);
   
   
+  function handleColor(){
+    if(Status=="รอยืนยัน"){
+      setStatusColor("#8D8D8D")
+    }
+    else{
+      setStatusColor("#FF0000")
+    }
+  }
 
   const [isCancleLoading , setIsCancleLoading ] = useState(false)
   async function handleCancel() {
@@ -55,12 +63,12 @@ const Data = ({ Status, By, Menu, Detail, Tel ,OrderId ,Token ,myFunc: reFetch})
           Authorization:`Bearer ${Token}`
         }
       });
+      
       console.log("Accept Order Success");
       setShowPopupConfirm(!showPopupConfirm);
       setShowButtons(false);
       setcloseOrderButtons(true);
       setStatusText("รอส่งอาหาร");
-      setStatusColor('#ff0000');
       reFetch();
     }
     catch{
@@ -109,15 +117,12 @@ const Data = ({ Status, By, Menu, Detail, Tel ,OrderId ,Token ,myFunc: reFetch})
       }, 1500);
       return () => clearTimeout(timer);
     } else if (showPopupClose) {
-      setShowPopupClose(false);
+      const timer = setTimeout(() => {
+        setShowPopupClose(false);
+      }, 1500);
+      return () => clearTimeout(timer);
     }
   }, [showPopupConfirm, showPopupClose]);
-
-  useEffect(() => {
-      if(statusText == 'รอส่งอาหาร') {
-        setStatusColor('#ff0000');
-      }
-  }, [statusText]);
 
   return (
     <div className="row">

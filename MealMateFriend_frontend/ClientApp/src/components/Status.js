@@ -121,6 +121,7 @@ function Status() {
           Authorization:`Bearer ${token}`,
         }
       });
+      console.log(res.data)
       setFarkSueData(res.data);
       console.log("ListOrderByUserId Success");
     }
@@ -182,6 +183,7 @@ function Status() {
                 <div id='Sub2' className='row text-left py-4 h6 m-auto bg-white'>
                   
                   {FarkSueData.map((data) => {
+                    console.log(data)
                     if(data.orderStatus == "waiting"){data.orderStatus="รอยืนยัน"}
                     else if(data.orderStatus == "accept"){data.orderStatus="รอส่งอาหาร"}
                     return <StatusFak 

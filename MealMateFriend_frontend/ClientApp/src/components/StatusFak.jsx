@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from 'axios';
 
 const Data = ({ Status, By, Menu, Detail, Tel ,OrderId ,Token ,myFunc: reFetch}) => {
-
+    console.log(OrderId)
     const [showPopup, setShowPopup] = useState(false);
 
     const StatusColor = {
@@ -20,14 +20,8 @@ const Data = ({ Status, By, Menu, Detail, Tel ,OrderId ,Token ,myFunc: reFetch})
         setShowPopup(!showPopup);
     }
 
+
     const [statusText, setStatusText] = useState(Status);
-
-    useEffect(() => {
-        if(statusText == 'รอส่งอาหาร') {
-          setStatusColor('#ff0000');
-        }
-    }, [statusText]);
-
 
     async function handleCancel() {
         try{

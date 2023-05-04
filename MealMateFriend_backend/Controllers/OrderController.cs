@@ -30,10 +30,14 @@ namespace main_backend.Controllers
             string userId = Request.HttpContext.User.FindFirstValue("UserId");
             var orders = await _orderService.ListOrdersByUserId(userId);
             var farkSue = new List<FarkSueModel>();
+            if(orders==null){
+                return farkSue;
+            }
             foreach (var order in orders){
                 var post = await _postService.GetPostByIdAsync(order.PostId);
                 var user = await _userService.GetUserByIdAsync(post.Owner);
                 farkSue.Add(new FarkSueModel{
+                    OrderId = order.Id,
                     OrderStatus = order.Status,
                     Username = user.Username,
                     Phone = user.Phone,
@@ -60,6 +64,7 @@ namespace main_backend.Controllers
             foreach(var order in orders){
                 var user = await _userService.GetUserByIdAsync(order.Owner);
                 rubFark.Add(new RubFarkModel { 
+                    OrderId = order.Id,
                     OrderStatus = order.Status,
                     Username = user.Username,
                     Phone = user.Phone,
@@ -78,10 +83,6 @@ namespace main_backend.Controllers
             try{
                 string userId = Request.HttpContext.User.FindFirstValue("UserId");
                 await _orderService.CreateOrderAsync(newOrder,userId);
-                var post = await _postService.GetPostByIdAsync(newOrder.PostId);
-                var user = await _userService.GetUserByIdAsync(userId);
-                post.ImgOrderIndexList.Add(user.ProfileImgIndex);
-                await _postService.UpdatePostAsync(post.Id,post);
                 return Ok();
             }
             catch{
@@ -93,9 +94,25 @@ namespace main_backend.Controllers
         [HttpPost]
         [Route("AcceptOrder")]
         public async Task<IActionResult> AcceptOrder(string orderId){
+            string userId = Request.HttpContext.User.FindFirstValue("UserId");
             var order = await _orderService.GetOrderByIdAsync(orderId);
             if (order == null){return NotFound();}
             order.Status = "accept";
+            await _orderService.UpdateOrderAsync(order);
+            var post = await _postService.GetPostByIdAsync(order.PostId);
+            var user = await _userService.GetUserByIdAsync(userId);
+            post.ImgOrderIndexList.Add(user.ProfileImgIndex);
+            await _postService.UpdatePostAsync(post.Id,post);
+            return Ok();
+        }
+
+        [Authorize]
+        [HttpPost]
+        [Route("RejectOrder")]
+        public async Task<IActionResult> RejectOrder(string orderId){
+            var order = await _orderService.GetOrderByIdAsync(orderId);
+            if (order == null){return NotFound();}
+            order.Status = "reject";
             await _orderService.UpdateOrderAsync(order);
             return Ok();
         }
@@ -108,6 +125,12 @@ namespace main_backend.Controllers
             if (order == null){return NotFound();}
             order.Status = "complete";
             await _orderService.UpdateOrderAsync(order);
+            var orders = await _orderService.ListAcceptOrderByPostIdAsync(order.PostId);
+            if(orders.Count ==0){
+                var post = await _postService.GetPostByIdAsync(order.PostId);
+                post.Status = "finish";
+                await _postService.UpdatePostAsync(post.Id,post);
+            }
             return Ok();
         }
     }

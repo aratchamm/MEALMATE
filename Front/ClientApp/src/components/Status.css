@@ -1,0 +1,307 @@
+#navRightStatus {
+    border-left: 0.1rem solid #8d8d8d36;
+    background-color: #8d8d8d13;
+    height: 1180px;
+  }
+
+#Toggle20{
+  display: flex;
+}
+
+body.Status {
+  background-image: url('https://sv1.picz.in.th/images/2023/04/27/yZ7ifN.png');
+  font-family: "Mitr", sans-serif;
+  background-position: left bottom;
+}
+
+#navLeftStatus {
+  margin-top: 3%;
+}
+
+@media (max-width: 375px) {
+
+  #navLeftStatus {
+    border-bottom: 0.1rem solid #8d8d8d36;
+    background-color: white;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+}
+}
+
+
+/* toggle */
+
+.can-toggle {
+  position: relative;
+}
+.can-toggle *, .can-toggle *:before, .can-toggle *:after {
+  box-sizing: border-box;
+}
+.can-toggle input[type=checkbox] {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.can-toggle input[type=checkbox][disabled] ~ label {
+  pointer-events: none;
+}
+.can-toggle input[type=checkbox][disabled] ~ label .can-toggle__switch {
+  opacity: 0.4;
+}
+/* ตัวอักษรพื้น */
+.can-toggle input[type=checkbox]:checked ~ label .can-toggle__switch:before {
+  content: attr(data-unchecked);
+  left: 0;
+}
+.can-toggle input[type=checkbox]:checked ~ label .can-toggle__switch:after {
+  content: attr(data-checked);
+}
+.can-toggle label {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.can-toggle label .can-toggle__switch {
+  position: relative;
+}
+.can-toggle label .can-toggle__switch:before {
+  content: attr(data-checked);
+  position: absolute;
+  top: 0;
+  text-transform: uppercase;
+  text-align: center;
+}
+/* พื้นตัวขยับ */
+.can-toggle label .can-toggle__switch:after {
+  content: attr(data-unchecked);
+  position: absolute;
+  z-index: 5;
+  text-transform: uppercase;
+  text-align: center;
+  background: #ff0000;
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+}
+
+.can-toggle label .can-toggle__label-text {
+  flex: 1;
+}
+
+/* ระยะตัวขยับ */
+.can-toggle input[type=checkbox]:checked ~ label .can-toggle__switch:after {
+  transform: translate3d(100px, 0, 0);
+  -webkit-transform: translate3d(100px, 0, 0);
+  -moz-transform: translate3d(100px, 0, 0);
+  -ms-transform: translate3d(100px, 0, 0);
+  -o-transform: translate3d(100px, 0, 0);
+}
+
+/* .can-toggle label {
+  font-size: 16px;
+} */
+
+/* กรอบตัวพื้น */
+.can-toggle label .can-toggle__switch {
+  top: 44px;
+  /*ขยับกรอบไปทางซ้าย*/left: 20px;
+  height: 50px;
+  flex: 0 0 210px;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+/* ตัวพื้นขวา */
+.can-toggle label .can-toggle__switch:before {
+  left: 100px;
+  font-size: 22px;
+  line-height: 8px;
+  width: 110px;
+  padding:  20px;
+}
+/* ตัวขยับ */
+.can-toggle label .can-toggle__switch:after {
+  top: 2.5px;
+  left: 2.5px;
+  border-radius: 10px;
+  width: 104.5px;
+  line-height: 44.5px;
+  font-size: 22px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+/* สเตท1 */
+/* พื้นหลังปุ่ม */
+.can-toggle.demo-rebrand-1 input[type=checkbox]:checked ~ label .can-toggle__switch {
+  background-color: #ffffff;
+  
+}
+/* ฟ้อนรับฝาก */
+.can-toggle.demo-rebrand-1 input[type=checkbox]:checked ~ label .can-toggle__switch:after {
+  color: #ffffff;
+  
+}
+
+.can-toggle.demo-rebrand-1 label .can-toggle__label-text {
+  flex: 1;
+  
+}
+/* สเตท1 */
+/* พื้นหลังปุ่ม */
+.can-toggle.demo-rebrand-1 label .can-toggle__switch {
+  transition: background-color 0.3s ease-in-out;
+  background: #ffffff;
+  -webkit-transition: background-color 0.3s ease-in-out;
+  -moz-transition: background-color 0.3s ease-in-out;
+  -ms-transition: background-color 0.3s ease-in-out;
+  -o-transition: background-color 0.3s ease-in-out;
+}
+/* สีฟ้อนรับฝาก */
+.can-toggle.demo-rebrand-1 label .can-toggle__switch:before {
+  color: #000000;
+}
+/* สีฟ้อนฝากซื้อ */
+.can-toggle.demo-rebrand-1 label .can-toggle__switch:after {
+  transition: transform 0.3s ease-in-out;
+  color: #ffffff;
+  -webkit-transition: transform 0.3s ease-in-out;
+  -moz-transition: transform 0.3s ease-in-out;
+  -ms-transition: transform 0.3s ease-in-out;
+  -o-transition: transform 0.3s ease-in-out;
+}
+
+.blank {
+  background-color: #8d8d8d13;
+  color: #8d8d8d13;
+  font-size: 7px;
+}
+
+
+
+/* xs */
+@media (max-width: 375px) {
+
+
+  #toggleContentRub,#toggleContentFak { 
+      height: 600px;
+    }
+
+    #Headd,#Sub,#Headd2,#Sub2 {
+      font-size: 14px;
+    }
+
+
+}
+
+
+  /* md ipad */
+  @media (max-width: 991px) and (min-width: 768px ) {
+
+    #navRightStatus {
+      position: fixed;
+      right: 0;
+    }
+
+    #toggleContentRub,#toggleContentFak { 
+      height: 600px;
+    }
+
+    
+#navLeftStatus {
+  left: 0;
+  position: fixed;
+}
+
+#Headd,#Sub,#Headd2,#Sub2 {
+  padding-left: 2%;
+  padding-right: 2%;
+  font-size: 18px;
+}
+
+  }
+
+   /* lg */
+   @media (max-width: 1199px) and (min-width: 992px ) {
+
+    #navRightStatus {
+      position: fixed;
+      right: 0;
+    }
+    #navLeftStatus {
+      left: 0;
+      position: fixed;
+    }
+
+    #toggleContentRub,#toggleContentFak { 
+      height: 600px;
+    }
+
+    #Headd,#Sub,#Headd2,#Sub2 {
+      padding-left: 5%;
+      padding-right: 5%;
+      font-size: 14px;
+    }
+
+   }
+  
+    /* xl */
+  @media (max-width: 1399px) and (min-width: 1200px ) {
+ 
+
+    #navRightStatus {
+      position: fixed;
+      right: 0;
+    }
+    #navLeftStatus {
+      left: 0;
+      position: fixed;
+    }
+    #toggleContentRub,#toggleContentFak { 
+      height: 600px;
+    }
+  }
+
+   /* xxl */
+  @media (min-width: 1400px ) {
+
+    #navRightStatus {
+      position: fixed;
+      right: 0;
+    }
+    #navLeftStatus {
+      left: 0;
+      position: fixed;
+    }
+
+    #toggleContentRub,#toggleContentFak { 
+      height: 600px;
+      
+    }
+
+    #Headd,#Sub,#Headd2,#Sub2 {
+      padding-left: 5%;
+      padding-right: 5%;
+      font-size: 22px;
+    }
+
+    #confirmBUTTON {
+      font-size: 16px;
+    }
+    
+
+}

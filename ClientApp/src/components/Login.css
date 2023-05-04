@@ -1,0 +1,162 @@
+body.LOGIN {
+  font-family: "Mitr", sans-serif;
+  background-image: url('https://sv1.picz.in.th/images/2023/04/22/yzyxyN.jpg');
+  max-width: 100%;
+  max-height: 100%;  
+  background-position: center center; 
+}
+
+body.SIGNUP {
+  font-family: "Mitr", sans-serif;
+  background-image: url('https://sv1.picz.in.th/images/2023/04/22/yzyxyN.jpg');
+  max-width: 100%;
+  max-height: 100%;  
+  background-position: center center; 
+}
+
+.display_wrapper{
+  display: flex;
+  justify-content: center;
+}
+
+/* CSS for image container */
+.image-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.login_img {
+  width: 50%;
+  max-width: 300px;
+  transform: translateY(75px);
+}
+
+/* CSS for form wrapper */
+.wrapper {
+  margin: 50px auto;
+  max-width: 500px;
+  max-height: 800px;
+  height: 430px;
+  margin-top: auto;
+  padding: 50px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  border-radius: 20px;
+}
+
+/* CSS for form inputs */
+form label {
+  display: block;
+  margin-bottom: 20px;
+  margin-top: 40px;
+  font-weight: bold;
+ 
+}
+
+form input[type="username"],
+form input[type="password"],
+form input[type="tel number"],
+form input[type="text"]  {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  margin-bottom: -35px;
+  margin-top: -30px;
+
+}
+
+.fa-eye, .fa-eye-slash {
+  float: right;
+  position: relative;
+  margin-top: -5%;
+  margin-right: 5%;
+}
+
+/* CSS for Let's Start button */
+.START, .CREATE {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background-color: #ff0000;
+  color: #fff;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  transform: translateY(50px);
+}
+
+.START:hover{
+  background: rgba(245, 46, 46, 0.767);
+}
+
+/* CSS for not-member text */
+.not-member {
+  text-align: center;
+  transform: translateY(60px);
+}
+
+.not-member a {
+  color: #ff0000;
+  text-decoration: none;
+}
+
+
+/* Media queries for responsiveness */
+@media screen and (max-width: 600px) {
+  .wrapper {
+    margin: 20px;
+  }
+
+  .login_img {
+    max-width: 250px;
+  }
+
+  form input[type="email"],ๆ
+  form input[type="password"] {
+    margin-bottom: -5px;
+  }
+  body.LOGIN{
+    background-image: url("https://sv1.picz.in.th/images/2023/04/22/yY0Brg.jpg");
+    max-width: 100%;
+    max-height: 100%;
+    width: 900px;
+    height: 1024px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size:cover;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  body.LOGIN{
+    background-image: url("https://sv1.picz.in.th/images/2023/04/22/yY0Brg.jpg");
+    max-width: 100%;
+    max-height: 100%;
+    width: 900px;
+    height: 1200px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size:cover;
+  }
+
+}
+
+
+/*หน้า sign up */
+
+.wrapper-signup{
+  margin: 50px auto;
+  max-width: 500px;
+  max-height: 800px;
+  height: 520px;
+  margin-top: auto;
+  padding: 40px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  border-radius: 20px; 
+}
+
+
+

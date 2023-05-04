@@ -1,16 +1,8 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import axios from 'axios';
 
-const Data = ({
-  Status,
-  By,
-  Menu,
-  Detail,
-  Tel,
-  OrderId,
-  Token,
-  myFunc: reFetch,
-}) => {
+const Data = ({ Status, By, Menu, Detail, Tel ,OrderId ,Token ,myFunc: reFetch}) => {
+
   const [showPopupConfirm, setShowPopupConfirm] = useState(false);
   const [showPopupCancel, setShowPopupCancel] = useState(false);
   const [showPopupClose, setShowPopupClose] = useState(false);
@@ -26,73 +18,81 @@ const Data = ({
 
   const [statusColor, setStatusColor] = useState("#8D8D8D");
   const [statusText, setStatusText] = useState(Status);
-
-  useEffect(() => {
-    if (Status == "รอยืนยัน") {
-      setStatusColor("#8D8D8D");
-    } else {
-      setStatusColor("#FF0000");
+  
+  
+  useEffect(()=>{
+    if(Status=="รอยืนยัน"){
+      setStatusColor("#8D8D8D")
     }
-  }, [Status]);
+    else{
+      setStatusColor("#FF0000")
+    }
+  },[Status])
 
-  const [isCancleLoading, setIsCancleLoading] = useState(false);
+  const [isCancleLoading , setIsCancleLoading ] = useState(false)
   async function handleCancel() {
-    try {
-      setIsCancleLoading(true);
+    try{
+      setIsCancleLoading(true)
       const res = await axios({
-        url: "https://localhost:7161/api/Order/RejectOrder?orderId=" + OrderId,
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${Token}`,
-        },
+        url:'https://localhost:7161/api/Order/RejectOrder?orderId='+OrderId,
+        method:'POST',
+        headers:{
+          Authorization:`Bearer ${Token}`
+        }
       });
-      await reFetch();
+      await  reFetch();
 
       setShowPopupCancel(!showPopupCancel);
       console.log("cancle Order Success");
-    } catch {
-      console.log("Failed to Cancel Order");
-    } finally {
-      setIsCancleLoading(false);
     }
+    catch{
+      console.log("Failed to Cancel Order")
+    } finally {
+      setIsCancleLoading(false)
+    }
+
+    
   }
 
   async function handleConfirm() {
-    try {
+    try{
       const res = await axios({
-        url: "https://localhost:7161/api/Order/AcceptOrder?orderId=" + OrderId,
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${Token}`,
-        },
+        url:'https://localhost:7161/api/Order/AcceptOrder?orderId='+OrderId,
+        method:'POST',
+        headers:{
+          Authorization:`Bearer ${Token}`
+        }
       });
-
+      
       console.log("Accept Order Success");
       setShowPopupConfirm(!showPopupConfirm);
       setShowButtons(false);
       setcloseOrderButtons(true);
       setStatusText("รอส่งอาหาร");
       reFetch();
-    } catch {
-      console.log("Failed to Accept Order");
     }
+    catch{
+      console.log("Failed to Accept Order")
+    }
+
+    
   }
 
   async function handleClose() {
-    try {
+    try{
       const res = await axios({
-        url:
-          "https://localhost:7161/api/Order/CompleteOrder?orderId=" + OrderId,
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${Token}`,
-        },
+        url:'https://localhost:7161/api/Order/CompleteOrder?orderId='+OrderId,
+        method:'POST',
+        headers:{
+          Authorization:`Bearer ${Token}`
+        }
       });
-      setShowPopupClose(true);
+      setShowPopupClose(!showPopupClose);
       reFetch();
-      console.log("Complete Order Success");
-    } catch {
-      console.log("Faild to Complete Order");
+      console.log("Complete Order Success")
+    }
+    catch{
+      console.log("Faild to Complete Order")
     }
   }
 
@@ -100,32 +100,34 @@ const Data = ({
     setShowPopupCancel(!showPopupCancel);
   };
 
-  useEffect(() => {
-    if (showPopupClose) {
-      let timer = setTimeout(() => {
-        setShowPopupClose(false);
-      }, 5000);
-      return () => {
-        clearTimeout(timer);
-      };
-    }
-  }, [showPopupClose]);
 
   useEffect(() => {
+    if (showPopupClose) {
+      const timer = setTimeout(() => {
+        setShowPopupClose(false);
+      }, 1500);
+      return () => clearTimeout(timer);
+    }
+  }, [ showPopupClose]);
+
+  useEffect(() => {
+    
     if (showPopupConfirm) {
-      let timer = setTimeout(() => {
+      const timer = setTimeout(() => {
         setShowPopupConfirm(false);
       }, 1500);
-      return () => {
-        clearTimeout(timer);
-      };
+      return () => clearTimeout(timer);
     }
   }, [showPopupConfirm]);
+
+
 
   return (
     <div className="row">
       <div className="col-3 py-3 m-auto">
-        <div style={{ color: statusColor }}>{statusText}</div>
+        <div style={{ color: statusColor }}>
+        {statusText}
+        </div>
 
         {showButtons && (
           <div className="py-3" id="confirmBUTTON">
@@ -197,7 +199,8 @@ const Data = ({
               style={{ color: "green" }}
             ></i>
             <div className="h4 py-4">
-              <b>คุณได้ยืนยันออเดอร์แล้ว</b>
+              <b>คุณได้ยืนยันออเดอร์แล้ว
+              </b>
             </div>
           </div>
         </div>
@@ -219,7 +222,9 @@ const Data = ({
 
       {showPopupCancel && (
         <div id="popup3" className="overlay ">
-          <div className="loading">loading</div>
+          <div className="loading">
+            loading
+          </div>
           <div className="popup3 text-center">
             <a className="close my-1 mx-3" onClick={togglePopup_cencel}>
               <img
@@ -229,9 +234,9 @@ const Data = ({
               ></img>
             </a>
             <div className="h3 py-4">
-              <b>
-                คุณต้องการยกเลิกใช่หรือไม่?
-                {isCancleLoading && "loading"}
+              <b>คุณต้องการยกเลิกใช่หรือไม่?
+              {isCancleLoading && 'loading'}
+
               </b>
             </div>
             <div className="content">

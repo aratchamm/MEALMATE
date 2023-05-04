@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from 'axios';
 
 const Data = ({ Status, By, Menu, Detail, Tel ,OrderId ,Token ,myFunc: reFetch}) => {
-    console.log(OrderId)
+
     const [showPopup, setShowPopup] = useState(false);
 
     const StatusColor = {

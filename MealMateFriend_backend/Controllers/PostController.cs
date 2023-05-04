@@ -29,10 +29,6 @@ namespace main_backend.Controllers
         public async Task<List<PostModel>> ListAllPosts(){
             string userId = Request.HttpContext.User.FindFirstValue("UserId");
             var posts = await _postService.ListAllPostsAsync(userId);
-            if(posts==null){
-                var nullList = new List<PostModel>();
-                return nullList;
-            }
             foreach (var post in posts){
                 var owner = await _userService.GetUserByIdAsync(post.Owner);
                 post.OwnerUserName = owner.Username;
@@ -45,24 +41,6 @@ namespace main_backend.Controllers
                 post.Count = counter;
             }
             return posts;
-        }
-
-        [Authorize]
-        [HttpGet]
-        [Route("GetMyPost")]
-        public async Task<PostModel> GetMyPost(){
-            string userId = Request.HttpContext.User.FindFirstValue("UserId");
-            return await _postService.GetPostByUserIdAsync(userId);
-        }
-
-        [Authorize]
-        [HttpPost]
-        [Route("FinishPost")]
-        public async Task<IActionResult> FinishPost(string postId){
-            var post = await _postService.GetPostByIdAsync(postId);
-            post.Status = "finish";
-            await _postService.UpdatePostAsync(postId,post);
-            return Ok();
         }
 
         [Authorize]
@@ -82,11 +60,11 @@ namespace main_backend.Controllers
 
         [Authorize]
         [HttpPost]
-        [Route("ClosePost")]
-        public async Task<IActionResult> ClosePost(string postId){
+        [Route("FinishPost")]
+        public async Task<IActionResult> FinishPost(string postId){
             var post = await _postService.GetPostByIdAsync(postId);
             if(post==null){return NotFound();}
-            post.Status="close";
+            post.Status="finish";
             var orders = await _orderService.ListWaitingOrderByPostIdAsync(postId);
             foreach(var order in orders){
                 order.Status = "reject";

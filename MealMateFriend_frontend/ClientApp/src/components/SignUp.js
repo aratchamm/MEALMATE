@@ -56,8 +56,9 @@ function Signup()
         setShowPopupSuccessfully(true);
                 setTimeout(() => {
                   setShowPopupSuccessfully(false);
+                  return navigate('/login');
                 }, 2500);
-                return navigate('/login');
+                
       }
       catch(err){
         console.log("This username is already in use")

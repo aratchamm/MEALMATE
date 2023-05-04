@@ -52,7 +52,10 @@ function Login() {
         }
         catch (error) {
             console.log("Username or Password Incorrect")
-            alert("Username or Password Incorrect")
+            setShowPopupIncorrect(true);
+            setTimeout(() => {
+                setShowPopupIncorrect(false);
+            }, 1500);
         }
     }
 
@@ -109,7 +112,7 @@ function Login() {
                                 e.target.value,
                         })
                     }}
-                        type={inputType} onKeyDown={handleKeyDown} placeholder="" /><span onClick={handlePasswordClick} className={inputClassName}></span>
+                        type={inputType} onKeyDown={handleKeyDown} placeholder="" /><span  style={{cursor: 'pointer'}} onClick={handlePasswordClick} className={inputClassName}></span>
                 </form>
                 <button className="m-auto START" onClick={Login}>Let's Start</button>
                 <div className="py-2 not-member"><h6>
@@ -131,8 +134,8 @@ function Login() {
 
                 <div id="popup4" className="overlay">
                     <div className="popup4 h1 text-center">
-                        <i className="fa-solid fa-circle-check" style={{ color: 'green' }}></i>
-                        <div className="h4 py-4"><b>Welcome to MEALMATE!</b></div>
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                        <div className="h4 py-4"><b>Username or Password Incorrect</b></div>
                     </div>
                 </div>
             )}

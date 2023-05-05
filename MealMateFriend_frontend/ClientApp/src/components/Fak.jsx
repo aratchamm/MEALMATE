@@ -1,19 +1,22 @@
-import React from "react";
-
+import React, { useEffect,useState } from "react";
 
 const Data = ({ Status, Menu }) => {
 
-  var Color = "";
-  if(Status == "รอยืนยัน"){
-    Color="#8d8d8d"
-  }
-  else if(Status == "รอส่งอาหาร"){
-    Color="#ff0000"
-  }
-
+  const [statusColor, setStatusColor] = useState(Status);
+  
+  
+  useEffect(()=>{
+    if(Status=="รอยืนยัน"){
+      setStatusColor("#8D8D8D")
+    }
+    else{
+      setStatusColor("#FF0000")
+    }
+  },[Status])
+  
   return (
     <div className="row p-1">
-      <div style={{color:Color}} className="col-5 h6 text-left">
+      <div style={{ color: statusColor }} className="col-5 h6 text-left">
         {Status}
       </div>
       <div className="col-7 h6 text-left">

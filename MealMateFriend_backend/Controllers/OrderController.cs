@@ -100,7 +100,7 @@ namespace main_backend.Controllers
             order.Status = "accept";
             await _orderService.UpdateOrderAsync(order);
             var post = await _postService.GetPostByIdAsync(order.PostId);
-            var user = await _userService.GetUserByIdAsync(userId);
+            var user = await _userService.GetUserByIdAsync(order.Owner);
             post.ImgOrderIndexList.Add(user.ProfileImgIndex);
             await _postService.UpdatePostAsync(post.Id,post);
             return Ok();

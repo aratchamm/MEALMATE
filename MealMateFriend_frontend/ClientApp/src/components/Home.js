@@ -309,7 +309,7 @@ function Home() {
             />})}
 
             <div className="col-12 h6 p-2 my-auto">
-            {FarkSueData.length > 0 ? <a href='/Status' id="view"><i>view all &gt;&gt;</i></a> : <h3></h3>}
+            {FarkSueData.length > 2 ? <a href='/Status' id="view"><i>view all &gt;&gt;</i></a> : <h3></h3>}
             </div>
 
 
@@ -332,7 +332,7 @@ function Home() {
             />})}
 
             <div className="col-12 h6 p-2 my-auto">
-            {RubFarkData.length > 0 ? <a href='/Status' id="view"><i>view all &gt;&gt;</i></a> : <h3></h3>}
+            {RubFarkData.length > 2 ? <a href='/Status' id="view"><i>view all &gt;&gt;</i></a> : <h3></h3>}
             </div>
 
           </div>

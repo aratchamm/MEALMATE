@@ -5,16 +5,15 @@ const Data = ({ Status, By, Menu, Detail, Tel ,OrderId ,Token ,myFunc: reFetch})
 
   const [showPopupConfirm, setShowPopupConfirm] = useState(false);
   const [showPopupCancel, setShowPopupCancel] = useState(false);
-  const [showPopupClose, setShowPopupClose] = useState(false);
+  const [showPopupCloseJob, setShowPopupCloseJob] = useState(false);
 
   const [showButtons, setShowButtons] = useState(Status === "รอยืนยัน");
-  const [closeOrderButtons, setcloseOrderButtons] = useState(
-    Status === "รอส่งอาหาร"
-  );
+  const [showCloseJobButtons, setShowCloseJobButtons] = useState(Status === "รอส่งอาหาร");
 
   const [cancelText, setCancelText] = useState("ยกเลิก");
   const [confirmText, setConfirmText] = useState("ยืนยัน");
   const [closeOrderText, setcloseOrderText] = useState("จัดส่งแล้ว");
+
 
   const [statusColor, setStatusColor] = useState("#8D8D8D");
   const [statusText, setStatusText] = useState(Status);
@@ -29,7 +28,35 @@ const Data = ({ Status, By, Menu, Detail, Tel ,OrderId ,Token ,myFunc: reFetch})
     }
   },[Status])
 
+  
+  useEffect(() => {
+
+    if (showPopupConfirm) {
+
+      const timer = setTimeout(() => {
+        setShowPopupConfirm(false);
+      }, 1500);
+      return () => clearTimeout(timer);
+    }
+  }, [showPopupConfirm]);
+
+
+  useEffect(() => {
+    
+    if (showPopupCloseJob) {
+      const timer = setTimeout(() => {
+        setShowPopupCloseJob(false);
+        setShowCloseJobButtons(false);
+      }, 1500);
+      return () => clearTimeout(timer);
+    }
+  }, [showPopupCloseJob]);
+
+
+
   const [isCancleLoading , setIsCancleLoading ] = useState(false)
+
+
   async function handleCancel() {
     try{
       setIsCancleLoading(true)
@@ -50,8 +77,6 @@ const Data = ({ Status, By, Menu, Detail, Tel ,OrderId ,Token ,myFunc: reFetch})
     } finally {
       setIsCancleLoading(false)
     }
-
-    
   }
 
   async function handleConfirm() {
@@ -63,22 +88,20 @@ const Data = ({ Status, By, Menu, Detail, Tel ,OrderId ,Token ,myFunc: reFetch})
           Authorization:`Bearer ${Token}`
         }
       });
-      
-      console.log("Accept Order Success");
+      setStatusText("รอส่งอาหาร");
       setShowPopupConfirm(!showPopupConfirm);
       setShowButtons(false);
-      setcloseOrderButtons(true);
-      setStatusText("รอส่งอาหาร");
+      setShowCloseJobButtons(true);
+      console.log("Accept Order Success"); 
       reFetch();
     }
     catch{
       console.log("Failed to Accept Order")
     }
-
     
   }
 
-  async function handleClose() {
+  async function handleCloseJob() {
     try{
       const res = await axios({
         url:'https://localhost:7161/api/Order/CompleteOrder?orderId='+OrderId,
@@ -87,40 +110,24 @@ const Data = ({ Status, By, Menu, Detail, Tel ,OrderId ,Token ,myFunc: reFetch})
           Authorization:`Bearer ${Token}`
         }
       });
-      setShowPopupClose(!showPopupClose);
+      setShowPopupCloseJob(!showPopupCloseJob);
+      
+
       reFetch();
       console.log("Complete Order Success")
     }
+    
     catch{
-      console.log("Faild to Complete Order")
+      console.log("Failed to Accept Order")
     }
+
+    
   }
+
 
   const togglePopup_cencel = () => {
     setShowPopupCancel(!showPopupCancel);
   };
-
-
-  useEffect(() => {
-    if (showPopupClose) {
-      const timer = setTimeout(() => {
-        setShowPopupClose(false);
-      }, 1500);
-      return () => clearTimeout(timer);
-    }
-  }, [ showPopupClose]);
-
-  useEffect(() => {
-    
-    if (showPopupConfirm) {
-      const timer = setTimeout(() => {
-        setShowPopupConfirm(false);
-      }, 1500);
-      return () => clearTimeout(timer);
-    }
-  }, [showPopupConfirm]);
-
-
 
   return (
     <div className="row">
@@ -161,12 +168,13 @@ const Data = ({ Status, By, Menu, Detail, Tel ,OrderId ,Token ,myFunc: reFetch})
             </div>
           </div>
         )}
-        {closeOrderButtons && (
+
+{showCloseJobButtons && (
           <div className="py-3" id="confirmBUTTON">
             <div style={{ display: "flex" }}>
               <button
-                onClick={handleClose}
-                className="col-12 col-md-6 col-lg-3"
+                onClick={handleCloseJob}
+                className="col-12 col-md-6 col-lg-3 {}"
                 style={{
                   borderRadius: "20px",
                   marginRight: "5px",
@@ -177,10 +185,12 @@ const Data = ({ Status, By, Menu, Detail, Tel ,OrderId ,Token ,myFunc: reFetch})
               >
                 {closeOrderText}
               </button>
-              <br></br>
             </div>
           </div>
         )}
+
+
+
       </div>
       <div className="col-3 py-3 m-auto">
         <div>{By}</div>
@@ -206,7 +216,7 @@ const Data = ({ Status, By, Menu, Detail, Tel ,OrderId ,Token ,myFunc: reFetch})
         </div>
       )}
 
-      {showPopupClose && (
+{showPopupCloseJob && (
         <div id="popup4" className="overlay">
           <div className="popup4 h1 text-center">
             <i
@@ -214,17 +224,19 @@ const Data = ({ Status, By, Menu, Detail, Tel ,OrderId ,Token ,myFunc: reFetch})
               style={{ color: "green" }}
             ></i>
             <div className="h4 py-4">
-              <b>จัดส่งออเดอร์สำเร็จแล้ว</b>
+              <b>จัดส่งออเดอร์สำเร็จแล้ว!
+              </b>
             </div>
           </div>
         </div>
       )}
 
+
+
+
+
       {showPopupCancel && (
         <div id="popup3" className="overlay ">
-          <div className="loading">
-            loading
-          </div>
           <div className="popup3 text-center">
             <a className="close my-1 mx-3" onClick={togglePopup_cencel}>
               <img
@@ -235,7 +247,7 @@ const Data = ({ Status, By, Menu, Detail, Tel ,OrderId ,Token ,myFunc: reFetch})
             </a>
             <div className="h3 py-4">
               <b>คุณต้องการยกเลิกใช่หรือไม่?
-              {isCancleLoading && 'loading'}
+              {isCancleLoading}
 
               </b>
             </div>

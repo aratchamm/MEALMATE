@@ -184,7 +184,8 @@ function Status() {
                   
                   {FarkSueData.map((data) => {
                     console.log(data)
-                    if(data.orderStatus == "waiting"){data.orderStatus="รอยืนยัน"}
+                    if(data.orderStatus == "waiting"){
+                      data.orderStatus="รอยืนยัน"}
                     else if(data.orderStatus == "accept"){data.orderStatus="รอส่งอาหาร"}
                     return <StatusFak 
                     Status = {data.orderStatus}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from 'axios';
 
 const Data = ({ Status, By, Menu, Detail, Tel ,OrderId ,Token ,myFunc: reFetch}) => {
@@ -19,6 +19,15 @@ const Data = ({ Status, By, Menu, Detail, Tel ,OrderId ,Token ,myFunc: reFetch})
     const togglePopup = () => {
         setShowPopup(!showPopup);
     }
+
+    useEffect(()=>{
+        if(Status=="รอยืนยัน"){
+          setStatusColor("#8D8D8D")
+        }
+        else{
+          setStatusColor("#FF0000")
+        }
+      },[Status])
 
 
     const [statusText, setStatusText] = useState(Status);
